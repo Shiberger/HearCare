@@ -5,6 +5,7 @@
 //  Created by Hannarong Kaewkiriya on 2/2/2568 BE.
 //
 
+// Views/ContentView.swift
 import SwiftUI
 
 struct ContentView: View {
@@ -18,26 +19,39 @@ struct ContentView: View {
                     .padding()
 
                 if viewModel.isTesting {
-                    Text("Testing...")
-                    Button("I hear the tone") {
-                        // Record the result for 1000 Hz
-                        viewModel.recordResult(frequency: "1000 Hz", volume: 50)
-                        viewModel.stopTest()
+                    Text("Testing \(viewModel.currentEar == .right ? "Right Ear" : "Left Ear") at \(viewModel.frequencies[viewModel.currentFrequencyIndex]) Hz, \(Int(viewModel.currentVolume)) dB")
+                    HStack {
+                        Button("I hear the tone") {
+                            viewModel.recordResponse(heard: true)
+                        }
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+
+                        Button("I don't hear the tone") {
+                            viewModel.recordResponse(heard: false)
+                        }
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
                 } else {
                     Button("Start Test") {
                         viewModel.startTest()
                     }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
 
-                if !viewModel.testResults.isEmpty {
-                    Text("Results:")
-                    ForEach(viewModel.testResults.sorted(by: { $0.key < $1.key }), id: \.key) { frequency, volume in
-                        Text("\(frequency): \(volume) dB")
-                    }
+                // Check if testResult is populated before navigating
+                if !viewModel.testResult["leftEar"]!.isEmpty && !viewModel.testResult["RightEar"]!.isEmpty {
+                    NavigationLink("View Summary", destination: HearingTestSummaryView(testResult: viewModel.testResult))
+                        .padding()
                 }
-
-                Spacer()
             }
             .padding()
             .navigationTitle("Hearing Test")

@@ -1,6 +1,12 @@
-// Models/HearingTestResult.swift
+//
+//  HearingTestResult.swift
+//  HearingTestApp
+//
+//  Created by Hannarong Kaewkiriya on 2/2/2568 BE.
+//
+
 import Foundation
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct HearingTestResult: Identifiable, Codable {
     @DocumentID var id: String? // Firestore document ID

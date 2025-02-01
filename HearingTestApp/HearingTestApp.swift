@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseCore
 
 @main
-struct HearingTestAppApp: App {
+struct HearingTestApp: App {
     init() {
         FirebaseApp.configure()
     }

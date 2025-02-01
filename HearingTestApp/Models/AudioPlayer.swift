@@ -19,7 +19,7 @@ class AudioPlayer {
 
     func playTone(frequency: Float, amplitude: Float) {
         let sampleRate = Float(engine.mainMixerNode.outputFormat(forBus: 0).sampleRate)
-        let duration: Float = 2.0 // seconds
+        let duration: Float = 1.0 // seconds
         let frameCount = UInt32(duration * sampleRate)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: player.outputFormat(forBus: 0), frameCapacity: frameCount)!
